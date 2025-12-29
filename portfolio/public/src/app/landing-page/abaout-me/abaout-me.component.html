@@ -1,0 +1,53 @@
+<div class="aboutMe flex center">
+  <div class="aboutMeText">
+    <h2 *ngIf="languageService.currentLanguage === 'de'">Über mich</h2>
+    <h2 *ngIf="languageService.currentLanguage === 'en'">About me</h2>
+    <div >
+      <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I am passionate about programming because it combines creativity with logical thinking. 
+        I am particularly fascinated by solving complex problems through efficient solutions. 
+        The dynamic development of technologies inspires me to constantly improve my skills. 
+        I find debugging exciting because it requires analytical thinking. 
+        The "aha!" moment when a program finally works excites me every time.</p>
+        <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Das Programmieren ist meine Leidenschaft, weil es Kreativität mit logischem Denken verbindet. 
+          Besonders fasziniert mich das Lösen komplexer Probleme durch effiziente Lösungen. 
+          Die dynamische Entwicklung von Technologien inspiriert mich, meine Fähigkeiten ständig zu verbessern. 
+          Das Debugging finde ich spannend, weil es analytisches Denken erfordert. 
+          Der „Aha!“-Moment, wenn ein Programm endlich funktioniert, begeistert mich jedes Mal.</p>
+      <div class="flex center gap">
+        <img class="imgAboutMe" src="assets/img/location.png" alt="" />
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">My main place of residence is in Amberg, in der Oberpfalz. 
+            I primarily seek remote work but am open to other types of work.</p>
+            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Mein Hauptwohnsitz ist in Amberg in der Oberpfalz.
+              Ich suche in erster Linie Fernarbeit, bin aber offen für andere Arten von Arbeit.</p>
+      </div>
+      <div class="flex center gap">
+        <img class="imgAboutMe" src="assets/img/bulb.png" alt="" />
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I am excited about learning new technologies. I believe in staying up-to-date to grow both personally and professionally.
+            Exploring new tools and frameworks is an opportunity to learn and improve my skills.</p>
+            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Ich bin begeistert davon, neue Technologien zu erlernen. Ich halte mich gerne auf dem Laufenden, um mich persönlich und beruflich weiterzuentwickeln.
+              Das Erforschen neuer Tools und Frameworks ist eine Gelegenheit, zu lernen und meine Fähigkeiten zu verbessern.</p>
+      </div>
+      <div class="flex center gap">
+        <img class="imgAboutMe" src="assets/img/puzzle.png" alt="" />
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">My approach to problem-solving combines analytical thinking and creativity. 
+            I break down complex challenges into smaller parts and aim for efficient, elegant solutions. 
+            I value collaboration, as exchanging ideas often brings new insights. 
+            Every challenge offers an opportunity to learn and improve my skills.</p>
+            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Mein Problemlösungsansatz verbindet analytisches Denken und Kreativität.
+              Ich zerlege komplexe Herausforderungen in kleinere Teile und strebe nach effizienten, eleganten Lösungen.
+              Ich schätze die Zusammenarbeit, da der Austausch von Ideen oft zu neuen Erkenntnissen führt.
+              Jede Herausforderung bietet mir die Möglichkeit, zu lernen und meine Fähigkeiten zu verbessern.</p>
+      </div>
+    </div>
+  </div>
+  <div class="picDiv flex"><div>
+    <img
+    #roundPic
+      src="assets/img/imgKlein.png"
+      class="roundPic picAnimate"
+      alt=""
+    />
+  </div>
+  <div #picLine class="center flex lineWidth picAnimate"><div class="picLine"></div></div></div>
+</div>
+<div class="shadowDiv"><img src="assets/img/shadow2.png" class="shadow2" alt=""></div>

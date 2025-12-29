@@ -1,0 +1,26 @@
+<div class="footer">
+  <div class="flex footerWidth">
+    <div class="left">
+      <a href="">
+        <img class="logo" src="assets/img/Logo.png" alt="" />
+    </a>
+    <a *ngIf="languageService.currentLanguage === 'en'" class="legal" href="imprint">Legal Notice</a>
+    <a *ngIf="languageService.currentLanguage === 'de'" class="legal" href="imprint">Rechtlicher Hinweis</a>
+    </div>
+    <div class="middle"><p>© Sascha Pascal Nyßen 2025</p></div>
+    <div class="right">
+      <a target="_blank" href="https://github.com/cyborg-s">
+        <img src="assets/img/github.png" alt="" />
+      </a>
+      <a href="#contact">
+        <img src="assets/img/mail.png" alt="" />
+      </a>
+      <a
+        target="_blank"
+        href="https://www.linkedin.com/in/sascha-nyßen-13228b27b/"
+      >
+        <img src="assets/img/linkedin.png" alt="" />
+      </a>
+    </div>
+  </div>
+</div>

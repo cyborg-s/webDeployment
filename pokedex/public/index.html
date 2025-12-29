@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="font.css" />
+    <script src="./script.js"></script>
+    <script src="./tamplate.js"></script>
+    <link rel="icon" type="image/png" href="./img/game.png" />
+  </head>
+  <body onload="init()" id="body">
+    <div class="site d-flex">
+      <header class="d-flex">
+        <div class="header d-flex">
+          <a href="./index.html" class="title d-flex"
+            ><img class="titleImg" src="./img/game.png" alt="Pokédex" />
+            <h1>Pokédex</h1></a
+          >
+          <input
+            id="filter"
+            oninput="filterPokemon()"
+            type="text"
+            placeholder="search"
+          />
+        </div>
+      </header>
+      <section class="d-flex" id="mainBody"></section>
+      <section class="loadMore" id="button"></section>
+    </div>
+    <footer class="d-flex">
+      <div class="footer d-flex">
+        (C) Coded by Sascha Nyßen <br />
+        <a class="title" href="./impressum.html">Impressum</a>
+      </div>
+    </footer>
+    <div id="spinner" class="spinner none">
+      <span class="loader"></span>
+    </div>
+    <div id="mainCard" class="mainCard d-flex none"></div>
+  </body>
+</html>

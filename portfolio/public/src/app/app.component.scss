@@ -1,0 +1,64 @@
+.width{
+    width: 100vw;
+}
+
+.menuOverlay{
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -200%;
+    width: 100vw;
+    height: 100vh;
+    transition: right 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+    z-index: 3;
+    &.open {
+        right: 0;
+      }
+}
+
+.burgerMenu{
+    display: none;
+    position: fixed;
+    top: 70px;
+    right: 25px;
+    z-index: 4;
+}
+
+.burgerImg{
+    cursor: pointer;
+    &.open{
+        display: none;
+    }
+}
+
+.appContent{
+    display: flex;
+    flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+}
+
+.mainContent {
+    flex-grow: 1; // Drückt den Footer nach unten
+  }
+
+
+@media (max-width: 820px){
+    .menuOverlay{
+        display: block;
+    }
+
+    .burgerMenu{
+        display: block;
+        right: calc(6% - 15px);
+        top: 40px;
+    }
+
+    .width{
+        width: 100vw;
+    }
+}
+

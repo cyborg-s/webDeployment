@@ -1,0 +1,440 @@
+#mainBody {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+body {
+  margin: 0;
+  color: #feca1c;
+  background-color: #05171e;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+.site {
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  min-height: 100vh;
+}
+
+h1 {
+  font-family: "Handjet";
+  font-weight: 400;
+  margin: 3px;
+}
+
+header {
+  background-color: #1a2d4d;
+  height: 120px;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.header {
+  max-width: 1340px;
+  width: 100vw;
+  margin-inline: 30px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.title {
+  text-decoration: none;
+  color: #feca1c;
+}
+
+h3 {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.titleImg {
+  height: 40px;
+}
+
+input {
+  height: 20px;
+  width: 120px;
+  border-radius: 5px;
+  border-color: red;
+}
+
+section {
+  background-color: #05171e;
+  max-width: 1440px;
+  margin-inline: 30px;
+  margin-bottom: 30px;
+}
+
+footer {
+  background-color: #1a2d4d;
+  height: 80px;
+  font-family: "Handjet";
+  font-weight: 300;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin-top: -80px;
+}
+
+.footer {
+  max-width: 1340px;
+  width: 100vw;
+  margin-inline: 30px;
+  flex-direction: column;
+}
+
+.card {
+  width: 230px;
+  height: 320px;
+  border: 3px solid #feca1c;
+  border-radius: 10px;
+  flex-direction: column;
+  align-items: center;
+  margin: 5px;
+}
+
+.card:hover {
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.cardImg {
+  margin-top: 20px;
+  width: 205px;
+  height: 150px;
+  border: 2px solid #feca1c;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a2d4d;
+}
+
+.cardImg img {
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.cardImg img:hover {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  transform: scale(1.4);
+}
+
+.type {
+  margin-inline: 10px;
+  padding: 3px;
+  padding-inline: 10px;
+  border: 2px solid #feca1c;
+  border-radius: 10px;
+  margin-block: 25px;
+  color: lightgray;
+  font-weight: 500;
+}
+
+.cardName h3 {
+  margin-inline: 10px;
+  font-family: "Handjet";
+  font-weight: 500;
+  font-size: 28px;
+  color: lightgray;
+}
+
+.loadMore {
+  height: 40px;
+  margin-bottom: 100px;
+}
+
+button {
+  height: 40px;
+  width: 100px;
+  background-color: #1a2d4d;
+  font-family: "Handjet";
+  color: #feca1c;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+button:hover {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);
+}
+
+.undefined {
+  display: none;
+}
+
+.grass {
+  background-color: #397036;
+}
+
+.fire {
+  background-color: #992810;
+}
+
+.water {
+  background-color: #1b5d87;
+}
+
+.bug {
+  background-color: #57731a;
+}
+
+.normal {
+  background-color: #707066;
+}
+
+.poison {
+  background-color: #5a317b;
+}
+
+.electric {
+  background-color: #998400;
+}
+
+.ground {
+  background-color: #644522;
+}
+
+.fairy {
+  background-color: #8d558a;
+}
+
+.psychic {
+  background-color: #993b4c;
+}
+
+.fighting {
+  background-color: #703328;
+}
+
+.rock {
+  background-color: #70663d;
+}
+
+.ghost {
+  background-color: #422843;
+}
+
+.ice {
+  background-color: #457c73;
+}
+
+.dragon {
+  background-color: #334372;
+}
+
+.dark {
+  background-color: #2e2929;
+}
+
+.steel {
+  background: #666670;
+}
+
+.flying {
+  background-color: #597999;
+}
+
+.loader {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: inline-block;
+  border-top: 4px solid #fff;
+  border-right: 4px solid transparent;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+.loader::after {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border-bottom: 4px solid #d53141;
+  border-left: 4px solid transparent;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 2;
+}
+
+.none {
+  display: none;
+}
+
+.mainCard {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.mCard {
+  width: 290px;
+  height: 435px;
+  border: 8px solid #feca1c;
+  border-radius: 15px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-family: "Handjet";
+  font-weight: 400;
+  font-size: 18px;
+  z-index: 1000;
+}
+
+.mHead {
+  justify-content: space-between;
+  text-transform: capitalize;
+  margin-inline: 10px;
+  height: 30px;
+  margin-block-start: 8px;
+  width: 250px;
+  font-size: 22px;
+}
+
+p {
+  margin: 0;
+}
+
+.mHeight {
+  justify-content: space-between;
+  width: 250px;
+}
+
+.mCardImg {
+  background-color: #1a2d4d;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #feca1c;
+  border-radius: 7px;
+  width: 270px;
+  height: 180px;
+}
+
+.mCardImg img {
+  height: auto;
+  max-height: 100%;
+  min-height: 180px;
+  max-width: 100%;
+}
+
+.mCardImg img:hover {
+  -webkit-transform: scale(1.4);
+  -moz-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  -o-transform: scale(1.4);
+  transform: scale(1.4);
+}
+
+.abilities {
+  text-transform: capitalize;
+  font-size: 26px;
+  font-weight: 500;
+  height: 120px;
+}
+
+.abilities p {
+  height: 28.67px;
+}
+
+.abilities p {
+  margin: 20px;
+}
+
+.stats {
+  width: 250px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.overflow {
+  overflow-y: hidden;
+}
+
+.leftRight {
+  height: 80px;
+  width: auto;
+  margin-top: 30px;
+}
+
+.leftRight:hover{
+  cursor: pointer;
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.leftRightDiv {
+  width: 300px;
+  justify-content: space-between;
+  z-index: 999;
+}
+
+.closeMainCard {
+  z-index: 998;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+
+.impressum {
+  margin: 30px;
+  max-width: 1440px;
+}

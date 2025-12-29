@@ -1,0 +1,11 @@
+<app-nav-bar class="header"></app-nav-bar>
+
+<div class="burgerMenu">
+    <img class="burgerImg" [ngClass]="{'open': isOpen}" (click)="toggleMenu()" src="assets/img/burger.png" alt="">
+    <img class="burgerImg" [ngClass]="{'open': !isOpen}" (click)="toggleMenu()" src="assets/img/close.png" alt="">
+  </div>
+<app-menu class="menuOverlay" (click)="toggleMenu()" [ngClass]="{'open': isOpen}"></app-menu>
+
+
+<router-outlet></router-outlet>
+<app-footer></app-footer>

@@ -1,0 +1,32 @@
+:host{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.background{
+    z-index: -1;
+    position: absolute;
+    top: 15vw;
+    width: 100vw;
+    right: 0;
+}
+
+#contact{
+    overflow-y: clip;
+}
+
+@media (max-width: 820px){
+    .background{
+        top: 37vw;
+
+        box-sizing: border-box;
+    }
+
+    app-portfolio{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

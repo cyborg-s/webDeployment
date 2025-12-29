@@ -1,0 +1,33 @@
+<div class="block">
+    <img src="assets/img/imgGroß.png" class="profilePic" alt="">
+    
+    <div>
+        <div class="space"><p class="rotate">I am</p></div>
+        <div>
+            <h1 class="p2">Sascha Nyßen</h1>
+            <p class="p1">FRONTEND DEVELOPER</p>
+            <a *ngIf="languageService.currentLanguage === 'en'" class="button1" href="#contact">Let´s Talk!</a>
+            <a *ngIf="languageService.currentLanguage === 'de'" class="button1" href="#contact">Lass uns reden!</a>
+        </div>
+    </div>
+</div>
+
+<div class="social">
+    <div>
+        <div class="line"></div>
+        <a target="_blank" href="https://github.com/cyborg-s">
+            <img src="assets/img/github.png" alt="">
+        </a>
+        <a href="#contact">
+            <img src="assets/img/mail.png" alt="">
+        </a>
+        <a target="_blank" href="https://www.linkedin.com/in/sascha-nyßen-13228b27b/">
+            <img src="assets/img/linkedin.png" alt="">
+        </a>
+        <p>nysascha1&#64;gmail.com</p>
+    </div>
+    <p *ngIf="languageService.currentLanguage === 'en'" class="scroll">Scroll down →</p>
+    <p *ngIf="languageService.currentLanguage === 'de'" class="scroll">Scroll runter →</p>
+</div>
+
+<div class="shadowDiv"><img src="assets/img/shadow1.png" class="profilePicBackground" alt=""></div>

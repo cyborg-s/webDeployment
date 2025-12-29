@@ -1,0 +1,44 @@
+
+<div class="flex justy">
+  <div class="headerDiv">
+    <header>
+      <a href=""><img src="assets/img/Logo.png" alt="" /></a>
+      
+    </header>
+  </div>
+</div>
+<div class="menu">
+  <div class="langDiv"><p
+            (click)="switchLanguage('de')"
+            [ngClass]="{
+              lang: true,
+              black: currentLanguage !== 'de',
+              green: currentLanguage === 'de'
+            }"
+          >
+            DE
+          </p>
+          <p
+            (click)="switchLanguage('en')"
+            [ngClass]="{
+              lang: true,
+              black: currentLanguage !== 'en',
+              green: currentLanguage === 'en'
+            }"
+          >
+            EN
+          </p>
+          </div>
+<div class="menuDiv" *ngIf="languageService.currentLanguage === 'en'" >
+  <a href="#aboutMe">About me</a>
+  <a href="#skills">Skills</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#contact">Contact</a>
+</div>
+<div class="menuDiv" *ngIf="languageService.currentLanguage === 'de'" >
+  <a href="#aboutMe">Über mich</a>
+  <a href="#skills">Skills</a>
+  <a href="#portfolio">Portfolio</a>
+  <a href="#contact">Kontakt</a>
+</div>
+</div>

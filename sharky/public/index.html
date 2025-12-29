@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sharky</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="icon"
+      href="img/3. Background/Mesa de trabajo 1.png"
+      type="image/png"
+    />
+    <script src="./models/drawableObjects.class.js"></script>
+    <script src="./models/statusBar.class.js"></script>
+    <script src="./models/Lifebar.class.js"></script>
+    <script src="./models/coinbar.class.js"></script>
+    <script src="./models/Poisonbar.class.js"></script>
+    <script src="./models/bosslife.class.js"></script>
+    <script src="./models/keyboard.class.js"></script>
+    <script src="./models/movableObject.class.js"></script>
+    <script src="./models/endboss.class.js"></script>
+    <script src="./models/character.class.js"></script>
+    <script src="./models/jellyFish.class.js"></script>
+    <script src="./models/pufferfish.class.js"></script>
+    <script src="./models/coins.class.js"></script>
+    <script src="./models/poision.class.js"></script>
+    <script src="./models/backgroundObjects.class.js"></script>
+    <script src="./models/start.class.js"></script>
+    <script src="./models/end.class.js"></script>
+    <script src="./models/water.class.js"></script>
+    <script src="./models/throwableObjects.class.js"></script>
+    <script src="./models/level.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./models/world.class.js"></script>
+    <script src="./js/game.js"></script>
+  </head>
+  <body onload="init()">
+    <h1 class="headline">Sharky</h1>
+    <div id="fullscreen" class="canvasButton">
+      <canvas id="canvas" width="720px" height="480px"> </canvas>
+      <div class="mute">
+        <img
+          class="fullscreenButton"
+          onclick="fullscreenDiv()"
+          src="./img/fullscreen.svg"
+          alt=""
+        />
+        <img
+          id="mute"
+          class="button dNone"
+          onclick="muteGame()"
+          src="img/muteIcon.png"
+          alt=""
+        />
+        
+        <img
+          id="unMute"
+          class="muteButton"
+          onclick="muteGame()"
+          src="img/unMuteIcon.png"
+          alt=""
+        />
+        <img 
+        class="help" 
+        onclick="help()" 
+        src="./img/help-circle-outline.svg" 
+        alt="">
+      </div>
+      <div id="startGameDiv" class="startGame">
+        <img
+          id="startGame"
+          onclick="startGame()"
+          src="./img/6.Botones/Start/1.png"
+          alt=""
+        />
+      </div>
+      <div id="restartDiv" class="startGame dNone">
+        <img
+          id="startGame"
+          onclick="restart()"
+          src="./img/6.Botones/Try again/Recurso 16.png"
+          alt=""
+        />
+      </div>
+      <div id="controls" class="dNone">
+        <div
+          class="arrows"
+          style="
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            gap: 5px;
+          "
+        >
+          <button id="upButton">▲</button>
+          <div>
+            <button id="leftButton">◀</button>
+
+            <button id="downButton">▼</button>
+            <button id="rightButton">▶</button>
+          </div>
+        </div>
+        <div class="actions">
+          <button id="actionButton">D</button>
+          <button id="action2Button">SPACE</button>
+        </div>
+      </div>
+    </div>
+    <div class="instructions">
+      <p>
+        <img src="./img/6.Botones/Key/arrow keys.png" alt="" />SWIM (UP, DOWN,
+        LEFT, RIGHT)
+      </p>
+      <p><img src="./img/6.Botones/Key/D key.png" alt="" />BUBBLE ATTAK (pause: 1.5sek)</p>
+      <p><img src="./img/6.Botones/Key/Space Bar key.png" alt="" />FIN ATTAK (pause: 2sek)</p>
+
+      <div class="attakInstructions">
+        <div class="instruc"><img class="instrucimg" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/2 Jelly fish/Dead/Lila/L4.png" alt=""></div>
+        <div class="instruc"><img class="instrucimg" src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/3 Final Enemy/2.floating/1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/3 Final Enemy/Hurt/2.png" alt=""></div>
+        <div class="instruc"><img class="slaper" src="./img/1.Sharkie/4.Attack/Fin slap/5.png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/3.png" alt=""></div> 
+      </div>
+    </div>
+    <div id="help" class="instHelp dNone">
+      <img class="helpBack" onclick="helpExit()" src="./img/back.svg" alt="Back">
+      <p>
+        <img src="./img/6.Botones/Key/arrow keys.png" alt="" />SWIM (UP, DOWN,
+        LEFT, RIGHT)
+      </p>
+      <p><img src="./img/6.Botones/Key/D key.png" alt="" />BUBBLE ATTAK (pause: 1.5sek)</p>
+      <p><img src="./img/6.Botones/Key/Space Bar key.png" alt="" />FIN ATTAK (pause: 2sek)</p>
+
+      <div class="attakInstructions">
+        <div class="instruc"><img class="instrucimg" src="./img/1.Sharkie/4.Attack/Bubble trap/Bubble.png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/2 Jelly fish/Regular damage/Lila 1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/2 Jelly fish/Dead/Lila/L4.png" alt=""></div>
+        <div class="instruc"><img class="instrucimg" src="./img/1.Sharkie/4.Attack/Bubble trap/Poisoned Bubble (for whale).png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/3 Final Enemy/2.floating/1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/3 Final Enemy/Hurt/2.png" alt=""></div>
+        <div class="instruc"><img class="slaper" src="./img/1.Sharkie/4.Attack/Fin slap/5.png" alt=""><p>+</p><img class="instrucimg" src="./img/2.Enemy/1.Puffer fish (3 color options)/1.Swim/3.swim1.png" alt=""><p>=</p><img class="instrucimg" src="./img/2.Enemy/1.Puffer fish (3 color options)/4.DIE/3.png" alt=""></div> 
+      </div>
+      <div id="impressumHelp"  class="impressHelp">
+        <a href="./impressum.html">Impressum</a>
+      </div>
+    </div>
+    <div id="turn">
+      <p>Turn your divice</p>
+      <img src="./img/turn.svg" alt="" />
+    </div>
+    <div id="impressum" class="impress">
+      <a href="./impressum.html">Impressum</a>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+<div class="portfolio">
+  <div class="portfolioHeader flex">
+    <div class="lineLeft"></div>
+    <h2>Portfolio</h2>
+    <div class="lineRight"></div>
+  </div>
+  <p *ngIf="languageService.currentLanguage === 'en'" class="undertitle flex">
+    Explore a selection of my work here - Interact with projects to see my
+    skills in action.
+  </p>
+  <p *ngIf="languageService.currentLanguage === 'de'" class="undertitle flex">
+    Sehen Sie sich hier eine Auswahl meiner Arbeiten an - Interagieren Sie mit Projekten, um meine
+    Fähigkeiten in Aktion.
+  </p>
+  <app-join></app-join>
+  <app-sharky></app-sharky>
+  <app-pokedex></app-pokedex>
+</div>
+<div class="shadow4Div">
+  <img class="shadow4" src="assets/img/shadow4.png" alt="" />
+</div>

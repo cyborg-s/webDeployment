@@ -1,0 +1,214 @@
+<div class="contact">
+  <div class="headerContact flex center">
+    <div class="line"></div>
+    <h2 *ngIf="languageService.currentLanguage === 'en'">Contact</h2>
+    <h2 *ngIf="languageService.currentLanguage === 'de'">Kontakt</h2>
+  </div>
+  <div class="contactForm flex">
+    <div class="left">
+      <h3 *ngIf="languageService.currentLanguage === 'en'">
+        Got a problem to solve?
+      </h3>
+      <h3 *ngIf="languageService.currentLanguage === 'de'">
+        Haben Sie ein Problem zu lösen?
+      </h3>
+      <p *ngIf="languageService.currentLanguage === 'en'">
+        I bring creative solutions and commitment to realise your projects
+        efficiently and successfully. With my knowledge, I will help you to
+        achieve your goals. Let's work together and achieve great results!
+      </p>
+      <p *ngIf="languageService.currentLanguage === 'de'">
+        Ich bringe kreative Lösungen und Engagement mit, um Ihre Projekte
+        effizient und erfolgreich umzusetzen. Mit meinem Wissen helfe ich Ihnen,
+        Ihre Ziele zu erreichen. Lassen Sie uns zusammenarbeiten und großartige
+        Ergebnisse erzielen!
+      </p>
+      <p *ngIf="languageService.currentLanguage === 'en'">
+        Need a Frontend developer? Contact me!
+      </p>
+      <p *ngIf="languageService.currentLanguage === 'de'">
+        Suchen Sie einen Frontend-Entwickler? Kontaktieren Sie mich!
+      </p>
+    </div>
+    <div class="right flex">
+      <form
+        *ngIf="languageService.currentLanguage === 'en'"
+        class="flex form"
+        (ngSubmit)="onSubmit(contactForm)"
+        #contactForm="ngForm"
+      >
+        <input
+          [(ngModel)]="contactData.name"
+          #name="ngModel"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your Name.."
+          required
+          #nameRef="ngModel"
+          [ngClass]="{ error: nameRef.invalid && nameRef.touched }"
+        />
+        @if (!name.valid && name.touched){
+        <span>Your name is required</span>
+        }
+        <input
+          [(ngModel)]="contactData.email"
+          #email="ngModel"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Your E-Mail.."
+          required
+          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+          #emailRef="ngModel"
+          [ngClass]="{ error: emailRef.invalid && emailRef.touched }"
+        />
+        @if (!email.valid && email.touched){
+        <span>Your email is required</span>
+        }
+        <textarea
+          #message="ngModel"
+          minlength="4"
+          [(ngModel)]="contactData.message"
+          id="message"
+          name="message"
+          placeholder="Write something.."
+          style="height: 200px"
+          required
+          #messageRef="ngModel"
+          [ngClass]="{ error: messageRef.invalid && messageRef.touched }"
+        ></textarea>
+        @if (!message.valid && message.touched){
+        <span>Your message is empty</span>
+        }
+        <div class="check flex">
+          <input
+            #checkbox="ngModel"
+            type="checkbox"
+            name="policy"
+            id="policy"
+            required
+            [(ngModel)]="isChecked"
+          />
+          <p>
+            I've read the
+            <a class="privacy" href="privacy">privacy policy</a>
+            and agree to the processing of my data as outlined.
+          </p>
+        </div>
+        @if (!checkbox.valid && message.touched){
+        <span class="privacyPolice">Privacy policy is required!</span>
+        }
+        <button
+          [ngClass]="{
+            'enabled-button': isFormValid(),
+            'disabled-button': !isFormValid()
+          }"
+          [disabled]="!isFormValid()"
+          class="submit"
+        >
+          Send massage :)
+        </button>
+      </form>
+      <form
+        *ngIf="languageService.currentLanguage === 'de'"
+        class="flex form"
+        (ngSubmit)="onSubmit(contactForm)"
+        #contactForm="ngForm"
+      >
+        <input
+          [(ngModel)]="contactData.name"
+          #name="ngModel"
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Dein Name.."
+          required
+          #nameRef="ngModel"
+          [ngClass]="{ error: nameRef.invalid && nameRef.touched }"
+        />
+        @if (!name.valid && name.touched){
+        <span>Dein name ist erforderlich</span>
+        }
+        <input
+          [(ngModel)]="contactData.email"
+          #email="ngModel"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Deine E-Mail.."
+          required
+          pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}"
+          #emailRef="ngModel"
+          [ngClass]="{ error: emailRef.invalid && emailRef.touched }"
+        />
+        @if (!email.valid && email.touched){
+        <span>Ihre E-Mail ist erforderlich</span>
+        }
+        <textarea
+          #message="ngModel"
+          minlength="4"
+          [(ngModel)]="contactData.message"
+          id="message"
+          name="message"
+          placeholder="Schreibe eine Nachricht.."
+          style="height: 200px"
+          required
+          #messageRef="ngModel"
+          [ngClass]="{ error: messageRef.invalid && messageRef.touched }"
+        ></textarea>
+        @if (!message.valid && message.touched){
+        <span>Ihre Nachricht ist leer</span>
+        }
+        <div class="check flex">
+          <input
+            #checkbox="ngModel"
+            type="checkbox"
+            name="policy"
+            id="policy"
+            required
+            [(ngModel)]="isChecked"
+          />
+          <p>
+            Ich habe die
+            <a class="privacy" href="privacy">Datenschutzbestimmungen</a>
+            gelesen und stimme der Verarbeitung meiner Daten wie beschrieben zu.
+          </p>
+        </div>
+        @if (!checkbox.valid && message.touched){
+        <span class="privacyPolice">Datenschutz muss bestätigt werde!</span>
+        }
+
+        <button
+          [ngClass]="{
+            'enabled-button': isFormValid(),
+            'disabled-button': !isFormValid()
+          }"
+          [disabled]="!isFormValid()"
+          class="submit"
+        >
+          Nachricht Abschicken :)
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="goUp">
+    <a href="#me">
+      <img
+        src="assets/img/learningtransparent.png"
+        [ngStyle]="{
+          'mask-image': 'url(assets/img/goUp.png)',
+          '-webkit-mask-image': 'url(assets/img/goUp.png)'
+        }"
+        alt=""
+      />
+    </a>
+  </div>
+</div>
+<div class="shadow5Div">
+  <img class="shadow5" src="assets/img/shadow5.png" alt="" />
+  <div #succsess class="succsess none">
+    <p *ngIf="languageService.currentLanguage === 'en'">Test Succsess!</p>
+    <p *ngIf="languageService.currentLanguage === 'de'">Test Erfolgreich!</p>
+  </div>
+</div>
