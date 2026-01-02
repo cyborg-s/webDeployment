@@ -5,26 +5,20 @@ networks:
     driver: bridge
 
 services:
+
   proxy:
-    image: nginx:alpine
+    build:
+      context: .
+      dockerfile: proxy/Dockerfile
     restart: unless-stopped
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - ./proxy/certs:/etc/nginx/certs:ro   # <--- mountet deinen lokalen certs-Ordner
-      - ./proxy/site.conf:/etc/nginx/conf.d/site.conf:ro
     depends_on:
-      - portfolio
       - pokedex
       - sharky
       - join
       - contact-api
-    networks:
-      - web
-
-  portfolio:
-    build: ./portfolio
     networks:
       - web
 
