@@ -1,24 +1,20 @@
-# Stage 1: Build Angular app
+# Build Stage
 FROM node:20-alpine AS build
-
 WORKDIR /app
 
-# Package installieren
+# Package.json kopieren und Dependencies installieren
 COPY public/package*.json ./
 RUN npm ci
 
-# Restliche Dateien kopieren und builden
+# App-Code kopieren und Production Build erstellen
 COPY public/. .
-RUN npx ng build --configuration production --output-path=dist/portfolio
+RUN npx ng build --configuration production
 
-# Stage 2: Nginx
+# Production Stage
 FROM nginx:alpine
-
-# Angular Build kopieren
+# Angular Build in Nginx html Ordner kopieren
 COPY --from=build /app/dist/portfolio /usr/share/nginx/html
-
-# Eigene nginx Konfiguration kopieren
+# Eigene Nginx-Konfiguration kopieren
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
