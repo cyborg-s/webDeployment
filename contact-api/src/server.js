@@ -30,7 +30,7 @@ app.post("/contact", async (req, res) => {
   try {
     await transporter.sendMail({
       from: `"${name}" <${email}>`,
-      to: process.env.CONTACT_EMAIL,
+      to: process.env.MAIL_TO,
       subject: `Neue Nachricht von ${name}`,
       text: message,
     });
