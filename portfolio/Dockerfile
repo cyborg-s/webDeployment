@@ -5,13 +5,13 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Nur package.json und package-lock.json kopieren
-COPY portfolio/public/package*.json ./
+COPY /public/package*.json ./
 
 # Dependencies installieren
 RUN npm ci
 
 # Rest des Projekts kopieren (inklusive angular.json und src/)
-COPY portfolio/public/ ./
+COPY /public/ ./
 
 # Angular Production Build
 RUN npx ng build --configuration production
