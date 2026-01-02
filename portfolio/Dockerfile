@@ -5,7 +5,7 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 # Package Dateien kopieren und Abhängigkeiten installieren
-COPY package.json package-lock.json ./
+COPY public/package.json public/package-lock.json ./
 RUN npm ci
 
 # Restliche Angular-Dateien kopieren
