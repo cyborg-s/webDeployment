@@ -45,6 +45,8 @@ services:
 
   contact-api:
     build: ./contact-api
+    env_file:
+      - ./contact-api/.env
     environment:
       - PORT=3000
     networks:
