@@ -29,11 +29,18 @@ app.post("/contact", async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: `"${name}" <${email}>`,
+      from: `"Portfolio Website" <${process.env.MAIL_FROM}>`,
       to: process.env.MAIL_TO,
+      replyTo: email, // User-Adresse für Antworten
       subject: `Neue Nachricht von ${name}`,
-      text: message,
+      text: `
+        Name: ${name}
+        Email: ${email}
+        Message:
+        ${message}
+        `,
     });
+
     res.status(200).json({ success: true });
   } catch (error) {
     console.error(error);
