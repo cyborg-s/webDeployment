@@ -1,33 +1,32 @@
-# 1️⃣ Node Image zum Bauen der Angular App
+# Stage 1: Angular Build
 FROM node:20-alpine AS build
 
-# Arbeitsverzeichnis im Container
 WORKDIR /app
 
-# Package Dateien kopieren und Abhängigkeiten installieren
-COPY public/package.json public/package-lock.json ./
+# Zum Angular-Projekt wechseln
+WORKDIR /app/public
+
+# Package.json & lockfile kopieren
+COPY public/package*.json ./
+
+# Dependencies installieren
 RUN npm ci
 
-# Restliche Angular-Dateien kopieren
-COPY . .
+# Restliches Angular-Projekt kopieren
+COPY public/. ./
 
-# Angular App für Produktion bauen
+# Angular Production Build
 RUN npx ng build --configuration production
 
-# 2️⃣ NGINX Image zum Ausliefern der gebauten Dateien
+# Stage 2: Nginx
 FROM nginx:alpine
 
-# Lösche die Standardseite
-RUN rm -rf /usr/share/nginx/html/*
+# Angular Build output in Nginx html Verzeichnis kopieren
+COPY --from=build /app/public/dist/public /usr/share/nginx/html
 
-# Kopiere die gebauten Dateien vom vorherigen Build-Stage
-COPY --from=build /app/dist/portfolio/ /usr/share/nginx/html/
-
-# Optional: Angular Routing fix (refresh auf Routen funktioniert)
-RUN echo 'server { listen 80; location / { root /usr/share/nginx/html; index index.html; try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
-
-# NGINX Port freigeben
+# Port 80 freigeben
 EXPOSE 80
 
-# Start NGINX
+# Nginx starten
 CMD ["nginx", "-g", "daemon off;"]
+
