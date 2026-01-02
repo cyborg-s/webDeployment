@@ -1,6 +1,6 @@
 FROM node:20-alpine
 WORKDIR /app
-COPY . .
+COPY public/. .
 RUN npm ci
 RUN npm run build:ssr   # Angular Universal build
 EXPOSE 4000
