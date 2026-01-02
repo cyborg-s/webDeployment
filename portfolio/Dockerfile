@@ -1,7 +1,29 @@
-FROM node:20-alpine
+# Stage 1: Angular Build
+FROM node:20-alpine AS build
+
+# Arbeitsverzeichnis im Container
 WORKDIR /app
-COPY public/. .
+
+# Nur package.json und package-lock.json kopieren
+COPY portfolio/public/package*.json ./
+
+# Dependencies installieren
 RUN npm ci
-RUN npm run build:ssr   # Angular Universal build
-EXPOSE 4000
-CMD ["node", "dist/portfolio/server/main.js"]
+
+# Rest des Projekts kopieren (inklusive angular.json und src/)
+COPY portfolio/public/ ./
+
+# Angular Production Build
+RUN npx ng build --configuration production
+
+# Stage 2: Nginx
+FROM nginx:alpine
+
+# Angular Build output in Nginx html Verzeichnis kopieren
+COPY --from=build /app/dist/portfolio /usr/share/nginx/html
+
+# Nginx Port freigeben
+EXPOSE 80
+
+# Nginx im Vordergrund starten
+CMD ["nginx", "-g", "daemon off;"]
