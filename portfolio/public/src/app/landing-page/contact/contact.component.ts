@@ -25,14 +25,14 @@ export class ContactComponent {
 
   @ViewChild('succsess', { static: false }) succsess!: ElementRef;
 
-  isFormValid(): boolean {
-    return (
-      this.contactData.name.trim() !== '' &&
-      this.contactData.email.trim() !== '' &&
-      this.contactData.message.trim() !== '' &&
-      this.isChecked
-    );
-  }
+isFormValid(): boolean {
+  return (
+    (this.contactData.name ?? '').trim() !== '' &&
+    (this.contactData.email ?? '').trim() !== '' &&
+    (this.contactData.message ?? '').trim() !== '' &&
+    this.isChecked
+  );
+}
 
   onSubmit(ngForm: NgForm) {
     if (!ngForm.valid) {
