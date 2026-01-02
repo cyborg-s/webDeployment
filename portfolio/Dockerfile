@@ -8,4 +8,4 @@ RUN npx ng build --configuration production
 
 # production stage
 FROM nginx:alpine
-COPY --from=build /app/dist/portfolio/public/browser /usr/share/nginx/html
+COPY --from=build /app/dist/portfolio/browser /usr/share/nginx/html
