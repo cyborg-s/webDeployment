@@ -15,10 +15,16 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
+      - portfolio
       - pokedex
       - sharky
       - join
       - contact-api
+    networks:
+      - web
+
+  portfolio:
+    build: ./portfolio
     networks:
       - web
 
