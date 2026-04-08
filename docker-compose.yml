@@ -5,11 +5,8 @@ networks:
     driver: bridge
 
 services:
-
   proxy:
-    build:
-      context: .
-      dockerfile: proxy/Dockerfile
+    build: ./proxy
     restart: unless-stopped
     ports:
       - "80:80"
@@ -23,7 +20,7 @@ services:
     networks:
       - web
     volumes:
-      - ./certs:/etc/nginx/certs:ro  # Zertifikate auf VM mounten
+      - /etc/ssl/certs:/etc/nginx/certs:ro   # Zertifikate von der VM mounten
 
   portfolio:
     build: ./portfolio

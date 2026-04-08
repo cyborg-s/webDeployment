@@ -6,7 +6,7 @@ RUN npm ci
 COPY portfolio/public/ ./
 RUN npx ng build --configuration production
 
-# Stage 2: Nginx for serving Angular + proxy
+# Stage 2: Nginx für Angular + Proxy
 FROM nginx:alpine
 COPY --from=build /app/dist/portfolio /usr/share/nginx/html
 COPY site.conf /etc/nginx/conf.d/default.conf
