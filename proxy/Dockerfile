@@ -9,6 +9,6 @@ RUN npx ng build --configuration production
 # Stage 2: Nginx for serving Angular + proxy
 FROM nginx:alpine
 COPY --from=build /app/dist/portfolio /usr/share/nginx/html
-COPY site.conf /etc/nginx/conf.d/default.conf   # nur site.conf, kein proxy/
+COPY site.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80 443
 CMD ["nginx", "-g", "daemon off;"]
