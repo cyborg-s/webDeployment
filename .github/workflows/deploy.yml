@@ -20,6 +20,9 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.AWS_VM_SSH_KEY }}
 
+      - name: Add VM to known_hosts
+        run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+
       - name: Copy repo to VM
         run: |
           rsync -avz --exclude '.git' ./ ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/
