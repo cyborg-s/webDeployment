@@ -1,4 +1,4 @@
-name: Deploy to AWS VM
+name: Build & Deploy to AWS VM
 
 on:
   push:
@@ -6,50 +6,43 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: [portfolio, pokedex, sharky, join]  # alle Angular-Projekte
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies & build Angular project
+        working-directory: ${{ matrix.project }}/public
+        run: |
+          npm ci
+          npx ng build --configuration production
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
-      # =====================
-      # Build Angular projects locally in GitHub Actions
-      # =====================
-      - name: Build Portfolio Angular App
-        working-directory: ./portfolio
+      - name: Build Docker image
         run: |
-          npm ci
-          npm run build -- --configuration production
+          docker build -t webdeploy_${{ matrix.project }} ./${{ matrix.project }}
 
-      - name: Build Pokedex Angular App
-        working-directory: ./pokedex
+      - name: Save Docker image as tar
         run: |
-          npm ci
-          npm run build -- --configuration production
+          mkdir -p docker-images
+          docker save webdeploy_${{ matrix.project }} -o docker-images/webdeploy_${{ matrix.project }}.tar
 
-      # Hier ggf. weitere Angular/Frontend-Projekte
-
-      # =====================
-      # Build Docker images locally in GitHub Actions
-      # =====================
-      - name: Build Docker images
-        run: |
-          docker build -t webdeploy_portfolio ./portfolio
-          docker build -t webdeploy_pokedex ./pokedex
-          docker build -t webdeploy_sharky ./sharky
-          docker build -t webdeploy_join ./join
-          docker build -t webdeploy_contact-api ./contact-api
-
-      # =====================
-      # Push Docker images to VM
-      # =====================
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
@@ -58,20 +51,14 @@ jobs:
       - name: Add VM to known_hosts
         run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
-      - name: Transfer Docker images to VM
+      - name: Copy Docker images to VM
         run: |
-          docker save webdeploy_portfolio | bzip2 | ssh ubuntu@${{ secrets.AWS_VM_IP }} "bunzip2 | docker load"
-          docker save webdeploy_pokedex | bzip2 | ssh ubuntu@${{ secrets.AWS_VM_IP }} "bunzip2 | docker load"
-          docker save webdeploy_sharky | bzip2 | ssh ubuntu@${{ secrets.AWS_VM_IP }} "bunzip2 | docker load"
-          docker save webdeploy_join | bzip2 | ssh ubuntu@${{ secrets.AWS_VM_IP }} "bunzip2 | docker load"
-          docker save webdeploy_contact-api | bzip2 | ssh ubuntu@${{ secrets.AWS_VM_IP }} "bunzip2 | docker load"
+          scp -r ${{ github.workspace }}/docker-images ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/
 
-      # =====================
-      # Deploy containers via docker-compose on VM
-      # =====================
-      - name: Deploy with docker-compose on VM
+      - name: Deploy on VM
         run: |
           ssh ubuntu@${{ secrets.AWS_VM_IP }} "
             cd /home/ubuntu/webDeployment &&
-            docker-compose up -d
+            for img in docker-images/*.tar; do docker load -i \$img; done &&
+            docker-compose up -d --build
           "
