@@ -4,6 +4,8 @@
   "description": "check",
   "main": "index.js",
   "scripts": {
+    "build": "ng build --configuration production",
+    "start": "ng serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
