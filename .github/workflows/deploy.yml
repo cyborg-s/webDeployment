@@ -1,4 +1,4 @@
-name: Build & Deploy
+name: Build Docker Images
 
 on:
   push:
@@ -18,39 +18,30 @@ jobs:
       - name: Login to GitHub Container Registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      # Portfolio (Angular)
+      # Portfolio
       - name: Build portfolio
         run: |
           cd portfolio/public
           npm ci
           npx ng build --configuration production
           cd ../..
-          docker build -t ghcr.io/${{ github.repository_owner }}/portfolio ./portfolio
-          docker push ghcr.io/${{ github.repository_owner }}/portfolio
+          docker build -t ghcr.io/${{ github.repository_owner }}/portfolio:latest ./portfolio
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio:latest
 
       # Pokedex
       - name: Build pokedex
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/pokedex ./pokedex
-          docker push ghcr.io/${{ github.repository_owner }}/pokedex
+          docker build -t ghcr.io/${{ github.repository_owner }}/pokedex:latest ./pokedex
+          docker push ghcr.io/${{ github.repository_owner }}/pokedex:latest
 
       # Sharky
       - name: Build sharky
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/sharky ./sharky
-          docker push ghcr.io/${{ github.repository_owner }}/sharky
+          docker build -t ghcr.io/${{ github.repository_owner }}/sharky:latest ./sharky
+          docker push ghcr.io/${{ github.repository_owner }}/sharky:latest
 
       # Join
       - name: Build join
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/join ./join
-          docker push ghcr.io/${{ github.repository_owner }}/join
-
-
-      - name: Deploy to VM
-        run: |
-          ssh ubuntu@${{ secrets.AWS_VM_IP }} "
-            cd /home/ubuntu/webDeployment &&
-            docker compose pull &&
-            docker compose up -d
-          "
+          docker build -t ghcr.io/${{ github.repository_owner }}/join:latest ./join
+          docker push ghcr.io/${{ github.repository_owner }}/join:latest
