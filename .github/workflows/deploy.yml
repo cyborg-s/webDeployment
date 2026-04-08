@@ -12,50 +12,41 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # ---- Angular Build ----
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Build portfolio (Angular)
         working-directory: portfolio/public
         run: |
           npm ci
           npx ng build --configuration production
+          docker build -t webdeploy_portfolio ../..
+          mkdir -p ../../docker-images
+          docker save webdeploy_portfolio | gzip > ../../docker-images/webdeploy_portfolio.tar.gz
 
-      # ---- Docker Setup ----
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      # ---- Build Docker images ----
-      - name: Build portfolio Docker image
-        run: |
-          docker build -t webdeploy_portfolio ./portfolio \
-            --build-arg DIST_DIR=public/dist/portfolio
-
-      - name: Build pokedex Docker image
+      - name: Build pokedex (NGINX)
         run: |
           docker build -t webdeploy_pokedex ./pokedex
+          mkdir -p docker-images
+          docker save webdeploy_pokedex | gzip > docker-images/webdeploy_pokedex.tar.gz
 
-      - name: Build sharky Docker image
+      - name: Build sharky (NGINX)
         run: |
           docker build -t webdeploy_sharky ./sharky
+          mkdir -p docker-images
+          docker save webdeploy_sharky | gzip > docker-images/webdeploy_sharky.tar.gz
 
-      - name: Build join Docker image
+      - name: Build join (NGINX)
         run: |
           docker build -t webdeploy_join ./join
-
-      # ---- Save images locally for transfer ----
-      - name: Save Docker images as tar
-        run: |
           mkdir -p docker-images
-          docker save webdeploy_portfolio -o docker-images/webdeploy_portfolio.tar
-          docker save webdeploy_pokedex -o docker-images/webdeploy_pokedex.tar
-          docker save webdeploy_sharky -o docker-images/webdeploy_sharky.tar
-          docker save webdeploy_join -o docker-images/webdeploy_join.tar
+          docker save webdeploy_join | gzip > docker-images/webdeploy_join.tar.gz
 
-      # ---- Deploy to VM ----
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
@@ -64,14 +55,16 @@ jobs:
       - name: Add VM to known_hosts
         run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
-      - name: Copy Docker images to VM
+      - name: Upload Docker images to VM via rsync
         run: |
-          scp -r docker-images ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/
+          rsync -avz --progress --partial docker-images/ ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/docker-images/
 
-      - name: Load & Deploy on VM
+      - name: Deploy on VM
         run: |
           ssh ubuntu@${{ secrets.AWS_VM_IP }} "
             cd /home/ubuntu/webDeployment &&
-            for img in docker-images/*.tar; do docker load -i \$img; done &&
+            for img in docker-images/*.tar.gz; do
+              gunzip -c \$img | docker load
+            done &&
             docker-compose up -d
           "
