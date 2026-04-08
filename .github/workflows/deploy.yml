@@ -1,87 +1,56 @@
-name: Build & Deploy to AWS VM via S3
+name: Build & Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  build-and-upload:
+  build:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+      - name: Login to GitHub Container Registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      # ---------------- Portfolio (Angular) ----------------
-      - name: Build portfolio (Angular)
-        working-directory: portfolio/public
+      # Portfolio (Angular)
+      - name: Build portfolio
         run: |
+          cd portfolio/public
           npm ci
           npx ng build --configuration production
-          # Dockerfile liegt im Ordner 'portfolio', daher Pfad anpassen
-          docker build -t webdeploy_portfolio ../../portfolio
-          mkdir -p ../../docker-images
-          docker save webdeploy_portfolio | gzip > ../../docker-images/webdeploy_portfolio.tar.gz
+          cd ../..
+          docker build -t ghcr.io/${{ github.repository_owner }}/portfolio ./portfolio
+          docker push ghcr.io/${{ github.repository_owner }}/portfolio
 
-      # ---------------- NGINX Projekte (nur builden) ----------------
-      - name: Build pokedex (NGINX)
+      # Pokedex
+      - name: Build pokedex
         run: |
-          docker build -t webdeploy_pokedex ./pokedex
-          mkdir -p docker-images
-          docker save webdeploy_pokedex | gzip > docker-images/webdeploy_pokedex.tar.gz
+          docker build -t ghcr.io/${{ github.repository_owner }}/pokedex ./pokedex
+          docker push ghcr.io/${{ github.repository_owner }}/pokedex
 
-      - name: Build sharky (NGINX)
+      # Sharky
+      - name: Build sharky
         run: |
-          docker build -t webdeploy_sharky ./sharky
-          mkdir -p docker-images
-          docker save webdeploy_sharky | gzip > docker-images/webdeploy_sharky.tar.gz
+          docker build -t ghcr.io/${{ github.repository_owner }}/sharky ./sharky
+          docker push ghcr.io/${{ github.repository_owner }}/sharky
 
-      - name: Build join (NGINX)
+      # Join
+      - name: Build join
         run: |
-          docker build -t webdeploy_join ./join
-          mkdir -p docker-images
-          docker save webdeploy_join | gzip > docker-images/webdeploy_join.tar.gz
+          docker build -t ghcr.io/${{ github.repository_owner }}/join ./join
+          docker push ghcr.io/${{ github.repository_owner }}/join
 
-      # ---------------- Upload Images to S3 ---------------
-      - name: Configure AWS CLI
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Upload Docker images to S3
-        run: |
-          aws s3 cp docker-images/ s3://${{ secrets.AWS_S3_BUCKET }}/docker-images/ --recursive
- 
-  deploy-on-vm:
-    needs: build-and-upload
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.AWS_VM_SSH_KEY }}
-
-      - name: Add VM to known_hosts
-        run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-
-      - name: Download & deploy Docker images on VM
+      - name: Deploy to VM
         run: |
           ssh ubuntu@${{ secrets.AWS_VM_IP }} "
             cd /home/ubuntu/webDeployment &&
-            mkdir -p docker-images &&
-            aws s3 sync s3://${{ secrets.AWS_S3_BUCKET }}/docker-images/ ./docker-images/ &&
-            for img in docker-images/*.tar.gz; do
-              gunzip -c \$img | docker load
-            done &&
-            docker-compose up -d
+            docker compose pull &&
+            docker compose up -d
           "

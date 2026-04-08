@@ -1,52 +1,19 @@
 version: "3.9"
 
-networks:
-  web:
-    driver: bridge
-
 services:
-  proxy:
-    build: ./proxy
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - portfolio
-      - pokedex
-      - sharky
-      - join
-      - contact-api
-    networks:
-      - web
-    volumes:
-      - /etc/ssl/certs:/etc/nginx/certs:ro   # Zertifikate von der VM mounten
 
   portfolio:
-    build: ./portfolio
-    networks:
-      - web
+    image: ghcr.io/cyborg-s/portfolio
+    restart: unless-stopped
 
   pokedex:
-    build: ./pokedex
-    networks:
-      - web
+    image: ghcr.io/cyborg-s/pokedex
+    restart: unless-stopped
 
   sharky:
-    build: ./sharky
-    networks:
-      - web
+    image: ghcr.io/cyborg-s/sharky
+    restart: unless-stopped
 
   join:
-    build: ./join
-    networks:
-      - web
-
-  contact-api:
-    build: ./contact-api
-    env_file:
-      - ./contact-api/.env
-    environment:
-      - PORT=3000
-    networks:
-      - web
+    image: ghcr.io/cyborg-s/join
+    restart: unless-stopped
