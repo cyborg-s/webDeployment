@@ -54,6 +54,9 @@ jobs:
       - name: Add VM to known_hosts
         run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
+      - name: List docker-images folder
+        run: ls -la ${{ github.workspace }}/docker-images
+
       - name: Copy Docker images to VM
         run: |
           scp -r ${{ github.workspace }}/docker-images ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/
