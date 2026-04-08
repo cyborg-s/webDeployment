@@ -26,7 +26,8 @@ jobs:
         run: |
           npm ci
           npx ng build --configuration production
-          docker build -t webdeploy_portfolio ../..
+          # Dockerfile liegt im Ordner 'portfolio', daher Pfad anpassen
+          docker build -t webdeploy_portfolio ../../portfolio
           mkdir -p ../../docker-images
           docker save webdeploy_portfolio | gzip > ../../docker-images/webdeploy_portfolio.tar.gz
 
