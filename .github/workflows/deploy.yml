@@ -20,33 +20,45 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # ----------------------
+      # Build Angular project
+      # ----------------------
       - name: Build portfolio (Angular)
         working-directory: portfolio/public
         run: |
           npm ci
           npx ng build --configuration production
-          docker build -t webdeploy_portfolio ../..
-          mkdir -p docker-images
-          docker save webdeploy_portfolio -o ../../docker-images/webdeploy_portfolio.tar
 
-      - name: Build pokedex (NGINX)
+      - name: Build Docker image for portfolio
+        run: |
+          docker build -t webdeploy_portfolio ./portfolio
+          mkdir -p docker-images
+          docker save webdeploy_portfolio -o docker-images/webdeploy_portfolio.tar
+
+      # ----------------------
+      # Build NGINX projects
+      # ----------------------
+      - name: Build Docker image for pokedex
         run: |
           docker build -t webdeploy_pokedex ./pokedex
           mkdir -p docker-images
           docker save webdeploy_pokedex -o docker-images/webdeploy_pokedex.tar
 
-      - name: Build sharky (NGINX)
+      - name: Build Docker image for sharky
         run: |
           docker build -t webdeploy_sharky ./sharky
           mkdir -p docker-images
           docker save webdeploy_sharky -o docker-images/webdeploy_sharky.tar
 
-      - name: Build join (NGINX)
+      - name: Build Docker image for join
         run: |
           docker build -t webdeploy_join ./join
           mkdir -p docker-images
           docker save webdeploy_join -o docker-images/webdeploy_join.tar
 
+      # ----------------------
+      # Deploy to VM
+      # ----------------------
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
