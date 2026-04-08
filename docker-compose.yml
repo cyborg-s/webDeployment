@@ -22,6 +22,8 @@ services:
       - contact-api
     networks:
       - web
+    volumes:
+      - ./certs:/etc/nginx/certs:ro  # Zertifikate auf VM mounten
 
   portfolio:
     build: ./portfolio
