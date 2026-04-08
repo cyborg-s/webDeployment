@@ -10,18 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        project: [portfolio, pokedex, sharky, join]  # alle Angular-Projekte
+        project: [portfolio, pokedex, sharky, join]
 
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      # Nur für Angular-Projekt portfolio
       - name: Set up Node.js
+        if: matrix.project == 'portfolio'
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
       - name: Install dependencies & build Angular project
+        if: matrix.project == 'portfolio'
         working-directory: ${{ matrix.project }}/public
         run: |
           npm ci
