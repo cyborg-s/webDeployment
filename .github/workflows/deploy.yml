@@ -1,43 +1,53 @@
-name: Build and Deploy Angular App
+name: Build & Deploy All Projects
 
 on:
   push:
     branches:
-      - main  # nur bei Push auf main ausführen
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      # optional: Setup Node nur für Build, falls npm nötig
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Build all Docker images
+        run: |
+          docker build -t webdeploy_proxy ./proxy
+          docker build -t webdeploy_portfolio ./portfolio
+          docker build -t webdeploy_pokedex ./pokedex
+          docker build -t webdeploy_sharky ./sharky
+          docker build -t webdeploy_join ./join
+          docker build -t webdeploy_contact-api ./contact-api
 
-      - name: Build Angular App
-        run: npm run build -- --configuration production
+      - name: Save images to tar (optional)
+        run: |
+          docker save webdeploy_proxy > proxy.tar
+          docker save webdeploy_portfolio > portfolio.tar
+          docker save webdeploy_pokedex > pokedex.tar
+          docker save webdeploy_sharky > sharky.tar
+          docker save webdeploy_join > join.tar
+          docker save webdeploy_contact-api > contact-api.tar
 
-      - name: Archive dist folder
-        run: tar -czf dist.tar.gz ./dist
-
-      - name: Deploy to AWS VM
+      - name: Copy Docker images to VM
         uses: appleboy/scp-action@v0.1.6
         with:
           host: ${{ secrets.AWS_VM_HOST }}
           username: ubuntu
           key: ${{ secrets.AWS_VM_SSH_KEY }}
           port: 22
-          source: "dist.tar.gz"
+          source: "*.tar"
           target: "~/webDeployment/"
 
-      - name: Extract and restart containers via SSH
+      - name: Load images & restart containers on VM
         uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.AWS_VM_HOST }}
@@ -46,6 +56,11 @@ jobs:
           port: 22
           script: |
             cd ~/webDeployment
-            tar -xzf dist.tar.gz
+            docker load -i proxy.tar
+            docker load -i portfolio.tar
+            docker load -i pokedex.tar
+            docker load -i sharky.tar
+            docker load -i join.tar
+            docker load -i contact-api.tar
             docker compose down
-            docker compose up -d --build
+            docker compose up -d
