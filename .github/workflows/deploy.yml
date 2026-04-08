@@ -61,7 +61,7 @@ jobs:
       - name: Upload Docker images to S3
         run: |
           aws s3 cp docker-images/ s3://${{ secrets.AWS_S3_BUCKET }}/docker-images/ --recursive
-
+ 
   deploy-on-vm:
     needs: build-and-upload
     runs-on: ubuntu-latest
