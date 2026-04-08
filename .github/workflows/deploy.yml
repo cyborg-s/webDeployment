@@ -50,7 +50,7 @@ jobs:
           mkdir -p docker-images
           docker save webdeploy_join | gzip > docker-images/webdeploy_join.tar.gz
 
-      # ---------------- Upload Images to S3 ----------------
+      # ---------------- Upload Images to S3 ---------------
       - name: Configure AWS CLI
         uses: aws-actions/configure-aws-credentials@v2
         with:
