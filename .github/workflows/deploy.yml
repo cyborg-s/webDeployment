@@ -20,6 +20,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # ---------------- Login GHCR ----------------
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       # ---------------- Portfolio (Angular) ----------------
       - name: Build portfolio Angular app
         working-directory: portfolio/public
@@ -27,29 +35,28 @@ jobs:
           npm ci
           npx ng build --configuration production
 
-      - name: Build Docker images
+      - name: Build & Push Docker images
         run: |
-          mkdir -p docker-images
-          docker build -t portfolio ./portfolio
-          docker save portfolio | gzip > docker-images/portfolio.tar.gz
+          # Portfolio
+          docker build -t ghcr.io/cyborg-s/portfolio:latest ./portfolio
+          docker push ghcr.io/cyborg-s/portfolio:latest
 
-          docker build -t pokedex ./pokedex
-          docker save pokedex | gzip > docker-images/pokedex.tar.gz
+          # Pokedex
+          docker build -t ghcr.io/cyborg-s/pokedex:latest ./pokedex
+          docker push ghcr.io/cyborg-s/pokedex:latest
 
-          docker build -t sharky ./sharky
-          docker save sharky | gzip > docker-images/sharky.tar.gz
+          # Sharky
+          docker build -t ghcr.io/cyborg-s/sharky:latest ./sharky
+          docker push ghcr.io/cyborg-s/sharky:latest
 
-          docker build -t join ./join
-          docker save join | gzip > docker-images/join.tar.gz
+          # Join
+          docker build -t ghcr.io/cyborg-s/join:latest ./join
+          docker push ghcr.io/cyborg-s/join:latest
 
-          docker build -t proxy ./proxy
-          docker save proxy | gzip > docker-images/proxy.tar.gz
+          # Contact API
+          docker build -t ghcr.io/cyborg-s/contact-api:latest ./contact-api
+          docker push ghcr.io/cyborg-s/contact-api:latest
 
-          docker build -t contact-api ./contact-api
-          docker save contact-api | gzip > docker-images/contact-api.tar.gz
-
-      - name: Upload Docker images as artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-images
-          path: docker-images/
+          # Proxy
+          docker build -t ghcr.io/cyborg-s/proxy:latest ./proxy
+          docker push ghcr.io/cyborg-s/proxy:latest
