@@ -19,7 +19,7 @@ export class MySkillsComponent implements AfterViewInit {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('show'); // Nur das sichtbare Bild animieren
+            entry.target.classList.add('show');
           }
         });
       },
