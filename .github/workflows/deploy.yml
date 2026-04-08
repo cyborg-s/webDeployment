@@ -9,17 +9,17 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      # ---------------- Checkout Repo ----------------
+      # ---------------- Checkout ----------------
       - name: Checkout repo
         uses: actions/checkout@v3
 
-      # ---------------- Node.js Setup ----------------
+      # ---------------- Node Setup ----------------
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # ---------------- Docker Buildx Setup ----------------
+      # ---------------- Docker Buildx ----------------
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -28,28 +28,29 @@ jobs:
         working-directory: portfolio/public
         run: |
           npm ci
-          npx ng build --configuration production
-          mkdir -p ../../docker-images
-          docker build -t webdeploy_portfolio ../..
-          docker save webdeploy_portfolio | gzip > ../../docker-images/webdeploy_portfolio.tar.gz
+          npx ng build --configuration production --output-path=dist/portfolio
+          cd ../
+          docker build -t webdeploy_portfolio .
+          mkdir -p docker-images
+          docker save webdeploy_portfolio | gzip > docker-images/webdeploy_portfolio.tar.gz
 
       # ---------------- NGINX Projekte ----------------
       - name: Build pokedex (NGINX)
         run: |
-          mkdir -p docker-images
           docker build -t webdeploy_pokedex ./pokedex
+          mkdir -p docker-images
           docker save webdeploy_pokedex | gzip > docker-images/webdeploy_pokedex.tar.gz
 
       - name: Build sharky (NGINX)
         run: |
-          mkdir -p docker-images
           docker build -t webdeploy_sharky ./sharky
+          mkdir -p docker-images
           docker save webdeploy_sharky | gzip > docker-images/webdeploy_sharky.tar.gz
 
       - name: Build join (NGINX)
         run: |
-          mkdir -p docker-images
           docker build -t webdeploy_join ./join
+          mkdir -p docker-images
           docker save webdeploy_join | gzip > docker-images/webdeploy_join.tar.gz
 
       # ---------------- SSH Setup ----------------
@@ -75,4 +76,4 @@ jobs:
               gunzip -c \$img | docker load
             done &&
             docker-compose up -d
-          "
+          ""
