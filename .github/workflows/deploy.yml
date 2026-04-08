@@ -1,47 +1,55 @@
-name: Build Docker Images
+name: Build & Push Docker Images
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-images:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
-      packages: write
-
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      - name: Login to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
 
-      # Portfolio
-      - name: Build portfolio
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # ---------------- Portfolio (Angular) ----------------
+      - name: Build portfolio Angular app
+        working-directory: portfolio/public
         run: |
-          cd portfolio/public
           npm ci
           npx ng build --configuration production
-          cd ../..
-          docker build -t ghcr.io/${{ github.repository_owner }}/portfolio:latest ./portfolio
-          docker push ghcr.io/${{ github.repository_owner }}/portfolio:latest
 
-      # Pokedex
-      - name: Build pokedex
+      - name: Build Docker images
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/pokedex:latest ./pokedex
-          docker push ghcr.io/${{ github.repository_owner }}/pokedex:latest
+          mkdir -p docker-images
+          docker build -t portfolio ./portfolio
+          docker save portfolio | gzip > docker-images/portfolio.tar.gz
 
-      # Sharky
-      - name: Build sharky
-        run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/sharky:latest ./sharky
-          docker push ghcr.io/${{ github.repository_owner }}/sharky:latest
+          docker build -t pokedex ./pokedex
+          docker save pokedex | gzip > docker-images/pokedex.tar.gz
 
-      # Join
-      - name: Build join
-        run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/join:latest ./join
-          docker push ghcr.io/${{ github.repository_owner }}/join:latest
+          docker build -t sharky ./sharky
+          docker save sharky | gzip > docker-images/sharky.tar.gz
+
+          docker build -t join ./join
+          docker save join | gzip > docker-images/join.tar.gz
+
+          docker build -t proxy ./proxy
+          docker save proxy | gzip > docker-images/proxy.tar.gz
+
+          docker build -t contact-api ./contact-api
+          docker save contact-api | gzip > docker-images/contact-api.tar.gz
+
+      - name: Upload Docker images as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-images
+          path: docker-images/
