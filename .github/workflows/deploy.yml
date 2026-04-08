@@ -20,6 +20,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      # ---------------- Portfolio (Angular) ----------------
       - name: Build portfolio (Angular)
         working-directory: portfolio/public
         run: |
@@ -29,6 +30,7 @@ jobs:
           mkdir -p ../../docker-images
           docker save webdeploy_portfolio | gzip > ../../docker-images/webdeploy_portfolio.tar.gz
 
+      # ---------------- NGINX Projekte (nur builden, kein Angular) ----------------
       - name: Build pokedex (NGINX)
         run: |
           docker build -t webdeploy_pokedex ./pokedex
@@ -47,6 +49,7 @@ jobs:
           mkdir -p docker-images
           docker save webdeploy_join | gzip > docker-images/webdeploy_join.tar.gz
 
+      # ---------------- SSH Setup ----------------
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.7.0
         with:
@@ -55,11 +58,13 @@ jobs:
       - name: Add VM to known_hosts
         run: echo "${{ secrets.AWS_VM_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
 
-      - name: Upload Docker images to VM via rsync
+      # ---------------- Upload Images via rsync ----------------
+      - name: Upload Docker images to VM
         run: |
           rsync -avz --progress --partial docker-images/ ubuntu@${{ secrets.AWS_VM_IP }}:/home/ubuntu/webDeployment/docker-images/
 
-      - name: Deploy on VM
+      # ---------------- Deploy on VM ----------------
+      - name: Load and deploy Docker images on VM
         run: |
           ssh ubuntu@${{ secrets.AWS_VM_IP }} "
             cd /home/ubuntu/webDeployment &&
