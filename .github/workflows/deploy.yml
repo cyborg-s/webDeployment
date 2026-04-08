@@ -35,6 +35,10 @@ jobs:
       # =====================
       # Build Docker images locally in GitHub Actions
       # =====================
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
       - name: Build Docker images
         run: |
           docker build -t webdeploy_portfolio ./portfolio
