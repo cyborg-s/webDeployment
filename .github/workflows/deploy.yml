@@ -71,6 +71,6 @@ jobs:
           username: ${{ secrets.GCP_VM_USER }}
           key: ${{ secrets.GCP_VM_SSH_KEY }}
           script: |
-            cd /opt/webapp
+            cd /home/factaccttig/opt/webapp
             docker compose pull
             docker compose up -d
