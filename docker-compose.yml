@@ -1,19 +1,101 @@
-version: "3.9"
-
 services:
-
   portfolio:
-    image: ghcr.io/cyborg-s/portfolio
+    image: ghcr.io/cyborg-s/portfolio:latest
+    networks:
+      - web
     restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pokedex:
-    image: ghcr.io/cyborg-s/pokedex
+    image: ghcr.io/cyborg-s/pokedex:latest
+    networks:
+      - web
     restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   sharky:
-    image: ghcr.io/cyborg-s/sharky
+    image: ghcr.io/cyborg-s/sharky:latest
+    networks:
+      - web
     restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   join:
-    image: ghcr.io/cyborg-s/join
+    image: ghcr.io/cyborg-s/join:latest
+    networks:
+      - web
     restart: unless-stopped
+    expose:
+      - "80"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  contact-api:
+    image: ghcr.io/cyborg-s/contact-api:latest
+    networks:
+      - web
+    restart: unless-stopped
+    expose:
+          - "3000"
+    environment:
+      SMTP_HOST: .env
+      SMTP_PORT: .env
+      SMTP_SECURE: .env
+      SMTP_USER: .env
+      SMTP_PASS: .env
+      MAIL_FROM: .env
+      MAIL_TO: .env
+    healthcheck:
+      test: ["CMD-SHELL", "exit 0"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  proxy:
+    image: ghcr.io/cyborg-s/proxy:latest
+    networks:
+      - web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/certs:ro
+      - ./proxy/site.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      portfolio:
+        condition: service_healthy
+      pokedex:
+        condition: service_healthy
+      sharky:
+        condition: service_healthy
+      join:
+        condition: service_healthy
+      contact-api:
+        condition: service_healthy
+
+networks:
+    web:
+      name: webdeployment_web

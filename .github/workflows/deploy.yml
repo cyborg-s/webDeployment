@@ -64,3 +64,12 @@ jobs:
           # Contact API
           docker build -t ghcr.io/${{ github.actor }}/contact-api:latest ./contact-api
           docker push ghcr.io/${{ github.actor }}/contact-api:latest
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.GCP_VM_HOST }}
+          username: ${{ secrets.GCP_VM_USER }}
+          key: ${{ secrets.GCP_VM_SSH_KEY }}
+          script: |
+            docker compose pull
+            docker compose up -d
