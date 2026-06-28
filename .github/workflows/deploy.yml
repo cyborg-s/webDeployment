@@ -28,8 +28,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: cyborg-s
+          password: ${{ secrets.GHCR_PAT }}
 
       # ---------------- Angular Build ----------------
       - name: Build portfolio Angular app
