@@ -45,14 +45,6 @@ jobs:
           docker build -t ghcr.io/${{ github.actor }}/portfolio:latest ./portfolio
           docker push ghcr.io/${{ github.actor }}/portfolio:latest
 
-          # Pokedex
-          docker build -t ghcr.io/${{ github.actor }}/pokedex:latest ./pokedex
-          docker push ghcr.io/${{ github.actor }}/pokedex:latest
-
-          # Sharky
-          docker build -t ghcr.io/${{ github.actor }}/sharky:latest ./sharky
-          docker push ghcr.io/${{ github.actor }}/sharky:latest
-
           # Join
           docker build -t ghcr.io/${{ github.actor }}/join:latest ./join
           docker push ghcr.io/${{ github.actor }}/join:latest
