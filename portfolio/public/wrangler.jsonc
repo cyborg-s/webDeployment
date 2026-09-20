@@ -4,6 +4,10 @@
   "main": "worker/index.mjs",
   "compatibility_date": "2026-09-20",
   "workers_dev": true,
+  "routes": [
+    { "pattern": "sascha-nyssen.de", "custom_domain": true },
+    { "pattern": "www.sascha-nyssen.de", "custom_domain": true }
+  ],
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": ["/api/contact"],
