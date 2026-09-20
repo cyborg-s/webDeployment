@@ -3,40 +3,32 @@
     <h2 *ngIf="languageService.currentLanguage === 'de'">Über mich</h2>
     <h2 *ngIf="languageService.currentLanguage === 'en'">About me</h2>
     <div >
-      <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I am passionate about programming because it combines creativity with logical thinking. 
-        I am particularly fascinated by solving complex problems through efficient solutions. 
-        The dynamic development of technologies inspires me to constantly improve my skills. 
-        I find debugging exciting because it requires analytical thinking. 
-        The "aha!" moment when a program finally works excites me every time.</p>
-        <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Das Programmieren ist meine Leidenschaft, weil es Kreativität mit logischem Denken verbindet. 
-          Besonders fasziniert mich das Lösen komplexer Probleme durch effiziente Lösungen. 
-          Die dynamische Entwicklung von Technologien inspiriert mich, meine Fähigkeiten ständig zu verbessern. 
-          Das Debugging finde ich spannend, weil es analytisches Denken erfordert. 
-          Der „Aha!“-Moment, wenn ein Programm endlich funktioniert, begeistert mich jedes Mal.</p>
+      <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I am a Fullstack Developer and build web applications, from front-end and back-end 
+          to APIs and deployment. In my own projects and client assignments, I independently turn requirements into working solutions. 
+          My focus is on modern web development using TypeScript and Python, complemented by knowledge of DevSecOps, IT security, and data protection.</p>
+        <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Ich bin Fullstack Developer und entwickle Webanwendungen vom Frontend über Backend 
+          und APIs bis zur Bereitstellung. In eigenen Projekten und Kundenaufträgen setze ich Anforderungen selbstständig in funktionierende Lösungen um. 
+          Mein Schwerpunkt liegt auf moderner Webentwicklung mit TypeScript und Python, ergänzt durch Kenntnisse in DevSecOps, IT-Security und Datenschutz.</p>
       <div class="flex center gap">
         <img class="imgAboutMe" src="assets/img/location.png" alt="" />
-        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">My main place of residence is in Amberg, in der Oberpfalz. 
-            I primarily seek remote work but am open to other types of work.</p>
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">Amberg in the Upper Palatinate. 
+            I primarily look for remote opportunities but am also open to other working models.</p>
             <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Mein Hauptwohnsitz ist in Amberg in der Oberpfalz.
-              Ich suche in erster Linie Fernarbeit, bin aber offen für andere Arten von Arbeit.</p>
+              Ich suche in erster Linie Remote-Arbeit, bin aber offen für andere Arten von Arbeit.</p>
       </div>
       <div class="flex center gap">
         <img class="imgAboutMe" src="assets/img/bulb.png" alt="" />
-        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I am excited about learning new technologies. I believe in staying up-to-date to grow both personally and professionally.
-            Exploring new tools and frameworks is an opportunity to learn and improve my skills.</p>
-            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Ich bin begeistert davon, neue Technologien zu erlernen. Ich halte mich gerne auf dem Laufenden, um mich persönlich und beruflich weiterzuentwickeln.
-              Das Erforschen neuer Tools und Frameworks ist eine Gelegenheit, zu lernen und meine Fähigkeiten zu verbessern.</p>
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">I prefer to learn new technologies through hands-on experience. I explore the underlying concepts,
+           try them out, and apply what I learn directly to my own projects. This allows me to continuously expand my technical knowledge while gaining practical experience.</p>
+            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Neue Technologien erschließe ich mir am liebsten praktisch. Ich probiere sie aus, beschäftige mich mit den zugrunde 
+              liegenden Konzepten und setze das Gelernte direkt in eigenen Projekten ein. So erweitere ich mein technisches Wissen kontinuierlich und sammle gleichzeitig praktische Erfahrung.</p>
       </div>
       <div class="flex center gap">
         <img class="imgAboutMe" src="assets/img/puzzle.png" alt="" />
-        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">My approach to problem-solving combines analytical thinking and creativity. 
-            I break down complex challenges into smaller parts and aim for efficient, elegant solutions. 
-            I value collaboration, as exchanging ideas often brings new insights. 
-            Every challenge offers an opportunity to learn and improve my skills.</p>
-            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Mein Problemlösungsansatz verbindet analytisches Denken und Kreativität.
-              Ich zerlege komplexe Herausforderungen in kleinere Teile und strebe nach effizienten, eleganten Lösungen.
-              Ich schätze die Zusammenarbeit, da der Austausch von Ideen oft zu neuen Erkenntnissen führt.
-              Jede Herausforderung bietet mir die Möglichkeit, zu lernen und meine Fähigkeiten zu verbessern.</p>
+        <p *ngIf="languageService.currentLanguage === 'en'" class="wrap">When faced with technical problems, I take a structured approach: I break complex tasks down into smaller problems, 
+          analyze possible causes, and develop clear solutions. I value clean implementation, reliability, and maintainable code over quick temporary fixes.</p>
+            <p *ngIf="languageService.currentLanguage === 'de'" class="wrap">Bei technischen Problemen gehe ich strukturiert vor: Ich zerlege komplexe Aufgaben in kleinere Teilprobleme, 
+              analysiere mögliche Ursachen und entwickle nachvollziehbare Lösungen. Dabei sind mir saubere Umsetzung, Zuverlässigkeit und langfristig wartbarer Code wichtiger als eine möglichst schnelle Zwischenlösung.</p>
       </div>
     </div>
   </div>

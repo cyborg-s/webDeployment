@@ -7,27 +7,28 @@
   <div class="contactForm flex">
     <div class="left">
       <h3 *ngIf="languageService.currentLanguage === 'en'">
-        Got a problem to solve?
+        Do you have a project or technical challenge?
       </h3>
       <h3 *ngIf="languageService.currentLanguage === 'de'">
-        Haben Sie ein Problem zu lösen?
+        Haben Sie ein Projekt oder eine technische Herausforderung?
       </h3>
       <p *ngIf="languageService.currentLanguage === 'en'">
-        I bring creative solutions and commitment to realise your projects
-        efficiently and successfully. With my knowledge, I will help you to
-        achieve your goals. Let's work together and achieve great results!
+        Are you looking for support in developing a web application or improving 
+        an existing project? As a Fullstack Developer, I support the development 
+        of frontend, backend, and APIs through to deployment. I focus on clean, 
+        reliable, and maintainable solutions.
       </p>
       <p *ngIf="languageService.currentLanguage === 'de'">
-        Ich bringe kreative Lösungen und Engagement mit, um Ihre Projekte
-        effizient und erfolgreich umzusetzen. Mit meinem Wissen helfe ich Ihnen,
-        Ihre Ziele zu erreichen. Lassen Sie uns zusammenarbeiten und großartige
-        Ergebnisse erzielen!
+        Sie suchen Unterstützung bei der Entwicklung einer Webanwendung oder möchten 
+        ein bestehendes Projekt weiterentwickeln? Als Fullstack Developer unterstütze 
+        ich bei der Umsetzung von Frontend, Backend und APIs bis zur Bereitstellung. 
+        Dabei lege ich Wert auf saubere, zuverlässige und nachvollziehbare Lösungen.
       </p>
       <p *ngIf="languageService.currentLanguage === 'en'">
-        Need a Frontend developer? Contact me!
+        Interested in working together? Get in touch!
       </p>
       <p *ngIf="languageService.currentLanguage === 'de'">
-        Suchen Sie einen Frontend-Entwickler? Kontaktieren Sie mich!
+        Interesse an einer Zusammenarbeit? Kontaktieren Sie mich!
       </p>
     </div>
     <div class="right flex">
@@ -107,7 +108,7 @@
           [disabled]="!isFormValid()"
           class="submit"
         >
-          Send massage :)
+          Send massage
         </button>
       </form>
       <form
@@ -128,7 +129,7 @@
           [ngClass]="{ error: nameRef.invalid && nameRef.touched }"
         />
         @if (!name.valid && name.touched){
-        <span>Dein name ist erforderlich</span>
+        <span>Ihr Name ist erforderlich</span>
         }
         <input
           [(ngModel)]="contactData.email"
@@ -176,7 +177,7 @@
           </p>
         </div>
         @if (!checkbox.valid && message.touched){
-        <span class="privacyPolice">Datenschutz muss bestätigt werde!</span>
+        <span class="privacyPolice">Die Datenschutzbestimmungen müssen bestätigt werden.</span>
         }
 
         <button
@@ -187,7 +188,7 @@
           [disabled]="!isFormValid()"
           class="submit"
         >
-          Nachricht Abschicken :)
+          Nachricht Abschicken
         </button>
       </form>
     </div>
@@ -208,7 +209,7 @@
 <div class="shadow5Div">
   <img class="shadow5" src="assets/img/shadow5.png" alt="" />
   <div #succsess class="succsess none">
-    <p *ngIf="languageService.currentLanguage === 'en'">Test Succsess!</p>
-    <p *ngIf="languageService.currentLanguage === 'de'">Test Erfolgreich!</p>
+    <p *ngIf="languageService.currentLanguage === 'en'">Message sent successfully!</p>
+    <p *ngIf="languageService.currentLanguage === 'de'">Nachricht erfolgreich gesendet!</p>
   </div>
 </div>

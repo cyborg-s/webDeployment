@@ -18,7 +18,7 @@ img{
 }
 
 .join {
-  height: 339px;
+  height: 500px;
   gap: 35px;
   justify-content: center;
   > .left {
@@ -75,6 +75,12 @@ img{
   }
 }
 
+@media (max-width: 1050px) {
+.right{
+        height: 600px!important;
+    }
+  }
+
 @media (max-width: 820px) {
   .join {
     flex-direction: column;
@@ -86,7 +92,7 @@ img{
     }
     >.right{
         width: 100vw;
-        height: auto;
+        height: auto!important;
         align-items: center;
         >h3{
             text-align: center;
@@ -106,4 +112,5 @@ img{
     margin-right: 30px!important;
   }
 }
+
 

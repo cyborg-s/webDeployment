@@ -5,7 +5,7 @@
         <div class="space"><p class="rotate">I am</p></div>
         <div>
             <h1 class="p2">Sascha Nyßen</h1>
-            <p class="p1">FRONTEND DEVELOPER</p>
+            <p class="p1">FULLSTACK DEVELOPER</p>
             <a *ngIf="languageService.currentLanguage === 'en'" class="button1" href="#contact">Let´s Talk!</a>
             <a *ngIf="languageService.currentLanguage === 'de'" class="button1" href="#contact">Lass uns reden!</a>
         </div>
@@ -15,16 +15,16 @@
 <div class="social">
     <div>
         <div class="line"></div>
-        <a target="_blank" href="https://github.com/cyborg-s">
+        <a class="socialLinks" target="_blank" href="https://github.com/cyborg-s">
             <img src="assets/img/github.png" alt="">
         </a>
-        <a href="#contact">
+        <a class="socialLinks" href="#contact">
             <img src="assets/img/mail.png" alt="">
         </a>
-        <a target="_blank" href="https://www.linkedin.com/in/sascha-nyßen-13228b27b/">
+        <a class="socialLinks" target="_blank" href="https://www.linkedin.com/in/sascha-nyßen-13228b27b/">
             <img src="assets/img/linkedin.png" alt="">
         </a>
-        <p>nysascha1&#64;gmail.com</p>
+        <a class="socialLinks link" href="mailto:kontakt@sascha-nyssen.de">kontakt&#64;sascha-nyssen.de</a>
     </div>
     <p *ngIf="languageService.currentLanguage === 'en'" class="scroll">Scroll down →</p>
     <p *ngIf="languageService.currentLanguage === 'de'" class="scroll">Scroll runter →</p>

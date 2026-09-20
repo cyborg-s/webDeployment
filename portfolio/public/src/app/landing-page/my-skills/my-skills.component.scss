@@ -135,6 +135,8 @@ h2 {
   }
 }
 
+
+
 .cLearning {
   position: relative;
   display: flex;
@@ -150,8 +152,8 @@ h2 {
     width: 60px;
     transition: all 0.1s ease-out;
     background-color: #9747ff;
-    mask-image: url("../../../assets/img/learning.png");
-    -webkit-mask-image: url("../../../assets/img/learning.png"); 
+    mask-image: url("../../../assets/img/skill.png");
+    -webkit-mask-image: url("../../../assets/img/skill.png"); 
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
@@ -169,10 +171,12 @@ h2 {
   }
   > .popup {
     position: absolute;
-    top: -110px;
-    left: 0;
+    top: -234px;
+    left: -107;
     opacity: 0;
     background-color: transparent !important;
+    height: 300px;
+    width: 350px;
   }
   &:hover .popup {
     opacity: 1;

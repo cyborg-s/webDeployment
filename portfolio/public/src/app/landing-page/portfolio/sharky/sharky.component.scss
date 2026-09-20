@@ -17,7 +17,7 @@ img{
   }
 
 .sharky{
-    margin-top: 100px;
+    margin-top: 40px;
     height: 339px;
     gap: 35px;
     justify-content: center;
@@ -77,6 +77,11 @@ img{
     }
 }
 
+@media (max-width: 1050px) {
+.right{
+        height: 500px!important;
+    }
+  }
 
 
   @media (max-width: 820px) {
@@ -84,12 +89,13 @@ img{
       flex-direction: column-reverse;
       height: auto;
       gap: 0;
+      margin-top: 80px;
       >.left{
           width: 342px;
           justify-content: center;
       }
       >.right{
-        height: auto;
+        height: auto!important;
           width: 100vw;
           align-items: center;
           >h3{
