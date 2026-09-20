@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AfterViewInit, PLATFORM_ID, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 
 @Component({
@@ -14,9 +14,15 @@ export class Projekt3Component implements AfterViewInit{
 
    
   
-    languageService = inject(LanguageService);
+    private readonly platformId = inject(PLATFORM_ID);
+
+  languageService = inject(LanguageService);
   
     ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {

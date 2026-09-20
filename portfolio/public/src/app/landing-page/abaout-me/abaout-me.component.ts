@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, PLATFORM_ID, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-abaout-me',
@@ -14,9 +14,15 @@ export class AbaoutMeComponent implements AfterViewInit {
   @ViewChild('picLine', { static: false }) lineElement!: ElementRef;
  
 
+  private readonly platformId = inject(PLATFORM_ID);
+
   languageService = inject(LanguageService);
 
   ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
