@@ -31,9 +31,6 @@ div {
     height: 40px !important;
     align-items: center;
     gap: 32px;
-    > p {
-      font-size: 23px;
-    }
     > a {
       > img {
         height: 30px !important;
@@ -244,9 +241,6 @@ h1, p {
   .social {
     > div {
       margin-left: 60px;
-      > p {
-        display: none;
-      }
     }
   }
 
