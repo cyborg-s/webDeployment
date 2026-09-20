@@ -7,7 +7,7 @@ img{
 
 .imgAnimate{
     opacity: 0;
-    transform: translateX(-150px); /* Startpunkt: 150px nach rechts verschoben */
+    transform: translateX(150px); /* Startpunkt: 150px nach rechts verschoben */
     transition: transform 1s ease-out, opacity 1s ease-out;
   }
   
@@ -16,8 +16,8 @@ img{
     transform: translateX(0); /* Nach links zur Normalposition */
   }
 
-.pokedex{
-    margin-top: 100px;
+.projekt2{
+    margin-top: 40px;
     height: 339px;
     gap: 35px;
     justify-content: center;
@@ -30,6 +30,7 @@ img{
         width: 36%;
         height: 339px;
         justify-content: end;
+        align-items: end;
         gap: 35px;
         >h2{
             margin: 0;
@@ -48,6 +49,7 @@ img{
             font-size: 16px;
             color: #FFFFFF;
             font-weight: 400;
+            text-align: end;
         }
         >.buttons{
             >a{
@@ -75,19 +77,25 @@ img{
     }
 }
 
+@media (max-width: 1050px) {
+.right{
+        height: 500px!important;
+    }
+  }
 
 
   @media (max-width: 820px) {
-    .pokedex {
-      flex-direction: column;
+    .projekt2 {
+      flex-direction: column-reverse;
       height: auto;
       gap: 0;
+      margin-top: 80px;
       >.left{
           width: 342px;
           justify-content: center;
       }
       >.right{
-        height: auto;
+        height: auto!important;
           width: 100vw;
           align-items: center;
           >h3{
@@ -109,3 +117,4 @@ img{
     }
   }
   
+

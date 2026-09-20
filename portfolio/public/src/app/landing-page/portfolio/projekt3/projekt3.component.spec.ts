@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokedexComponent } from './pokedex.component';
+import { Projekt3Component } from './projekt3.component';
 
-describe('PokedexComponent', () => {
-  let component: PokedexComponent;
-  let fixture: ComponentFixture<PokedexComponent>;
+describe('Projekt3Component', () => {
+  let component: Projekt3Component;
+  let fixture: ComponentFixture<Projekt3Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokedexComponent]
+      imports: [Projekt3Component]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PokedexComponent);
+    fixture = TestBed.createComponent(Projekt3Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

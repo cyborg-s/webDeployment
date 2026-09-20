@@ -17,7 +17,7 @@ img{
   transform: translateX(0); /* Nach links zur Normalposition */
 }
 
-.join {
+.projekt1 {
   height: 500px;
   gap: 35px;
   justify-content: center;
@@ -82,7 +82,7 @@ img{
   }
 
 @media (max-width: 820px) {
-  .join {
+  .projekt1 {
     flex-direction: column;
     height: auto;
     gap: 0;

@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 
 @Component({
-  selector: 'app-join',
+  selector: 'app-projekt1',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './join.component.html',
-  styleUrl: './join.component.scss'
+  templateUrl: './projekt1.component.html',
+  styleUrl: './projekt1.component.scss'
 })
-export class JoinComponent implements AfterViewInit{
+export class Projekt1Component implements AfterViewInit{
    @ViewChild('img', { static: false }) imageElement!: ElementRef;
 
     

@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 
 @Component({
-  selector: 'app-pokedex',
+  selector: 'app-projekt3',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './pokedex.component.html',
-  styleUrl: './pokedex.component.scss'
+  templateUrl: './projekt3.component.html',
+  styleUrl: './projekt3.component.scss'
 })
-export class PokedexComponent implements AfterViewInit{
+export class Projekt3Component implements AfterViewInit{
   @ViewChild('img', { static: false }) imageElement!: ElementRef;
 
    

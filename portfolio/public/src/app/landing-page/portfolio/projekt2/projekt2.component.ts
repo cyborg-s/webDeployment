@@ -2,13 +2,13 @@ import { AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angula
 import { CommonModule } from '@angular/common';
 import { LanguageService } from '../../../services/language.service';
 @Component({
-  selector: 'app-sharky',
+  selector: 'app-projekt2',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './sharky.component.html',
-  styleUrl: './sharky.component.scss'
+  templateUrl: './projekt2.component.html',
+  styleUrl: './projekt2.component.scss'
 })
-export class SharkyComponent implements AfterViewInit{
+export class Projekt2Component implements AfterViewInit{
   @ViewChild('img', { static: false }) imageElement!: ElementRef;
 
    
