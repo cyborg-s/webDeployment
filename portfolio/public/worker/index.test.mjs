@@ -61,7 +61,7 @@ test('Resend payload and provider failures (network fully mocked)', async (t) =>
     assert.equal(options.headers.Authorization, `Bearer ${env.RESEND_API_KEY}`);
     assert.deepEqual(JSON.parse(options.body), {
       from: 'Portfolio Kontaktformular <website@sascha-nyssen.de>',
-      to: ['kontakt@sascha-nyssen.de'], reply_to: 'visitor@example.org',
+      to: ['saschanyssen@googlemail.com'], reply_to: 'visitor@example.org',
       subject: 'Kontaktanfrage über das Portfolio',
       text: 'Name: Visitor\nE-Mail: visitor@example.org\n\nNachricht:\nHello',
     });

@@ -84,7 +84,7 @@ async function contact(request, env) {
       signal: AbortSignal.timeout(10000),
       body: JSON.stringify({
         from: 'Portfolio Kontaktformular <website@sascha-nyssen.de>',
-        to: ['kontakt@sascha-nyssen.de'],
+        to: ['saschanyssen@googlemail.com'],
         reply_to: fields.email,
         subject: 'Kontaktanfrage über das Portfolio',
         text: `Name: ${fields.name}\nE-Mail: ${fields.email}\n\nNachricht:\n${fields.message}`,
