@@ -23,6 +23,11 @@
   height: 20px;
 }
 
+.header .privacy-heading {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 button {
   display: flex;
   justify-content: center;

@@ -1,3 +1,7 @@
+body {
+  display: block!important;
+}
+
 .inputfield.error {
   border: 1px solid red;
 }
@@ -390,7 +394,7 @@ input[type="password"]:focus {
   .login-head {
     height: 60px;
     position: relative;
-    padding-right: 0;
+    padding-right: 25%;
   }
 
   .log-in-overlay,
@@ -470,5 +474,55 @@ input[type="password"]:focus {
 @media (max-width: 380px) {
   .inputfield {
     width: 200px;
+  }
+}
+
+/* Keep the demo notice and forms reachable on shorter screens. */
+.container-login-signup {
+  position: relative;
+  top: auto;
+  bottom: auto;
+  margin: 220px 0 40px;
+}
+
+.login-footer {
+  position: relative;
+  bottom: auto;
+  padding-bottom: 35px;
+}
+
+.demo-notice {
+  max-width: 380px;
+  margin: 16px 0;
+  padding: 12px;
+  border-left: 4px solid #29abe2;
+  border-radius: 8px;
+  background-color: #eef7fc;
+  color: #2a3647;
+  font-size: 14px;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+.demo-notice a {
+  color: #175574;
+  text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+  .container-login-signup { margin: 0; }
+  .demo-notice { max-width: 364px; }
+}
+
+@media (max-width: 520px) {
+  .demo-notice { max-width: 250px; }
+}
+
+@media (max-width: 380px) {
+  .demo-notice { max-width: 200px; }
+  .log-in-overlay,
+  .signup-mask {
+    padding-left: 30px;
+    padding-right: 30px;
   }
 }
