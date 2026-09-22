@@ -39,7 +39,7 @@ jobs:
         run: node --test worker/index.test.mjs
 
       - name: Build production portfolio
-        run: npm run build -- --configuration production
+        run: npm run build
 
       - name: Validate portfolio Worker and assets
         run: npx --no-install wrangler deploy --dry-run
