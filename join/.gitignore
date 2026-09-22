@@ -1,2 +1,2 @@
-/node_modules/
+# Join-specific Wrangler state
 /.wrangler/
