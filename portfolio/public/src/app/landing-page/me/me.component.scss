@@ -31,9 +31,6 @@ div {
     height: 40px !important;
     align-items: center;
     gap: 32px;
-    > p {
-      font-size: 23px;
-    }
     > a {
       > img {
         height: 30px !important;
@@ -114,6 +111,21 @@ h1, p {
   width: 100px !important;
   height: 0 !important;
   border: 2px solid #9747ff;
+}
+
+.socialLinks{
+  z-index: 200;
+}
+
+.link{
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 23px;
+  font-weight: 400; 
+  &:hover{
+    color: #70e61c;
+    text-decoration: underline;
+    }
 }
 
 .button1 {
@@ -229,9 +241,7 @@ h1, p {
   .social {
     > div {
       margin-left: 60px;
-      > p {
-        display: none;
-      }
+      flex-wrap: balance;
     }
   }
 

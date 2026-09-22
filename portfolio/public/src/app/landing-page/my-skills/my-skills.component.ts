@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
+import { AfterViewInit, PLATFORM_ID, Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
 import { LanguageService } from '../../services/language.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-my-skills',
@@ -12,9 +12,15 @@ import { CommonModule } from '@angular/common';
 export class MySkillsComponent implements AfterViewInit {
   @ViewChildren('skills') imageElements!: QueryList<ElementRef>;
 
+  private readonly platformId = inject(PLATFORM_ID);
+
   languageService = inject(LanguageService);
 
   ngAfterViewInit() {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

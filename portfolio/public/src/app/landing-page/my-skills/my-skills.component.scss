@@ -81,26 +81,7 @@ h2 {
     > .cLearning {
       padding-right: 5vw;
     }
-    > .skillDiv {
-      padding-right: 5vw;
-      padding-bottom: 50px;
-      flex-direction: column;
-      align-items: center;
-      height: 101px;
-      width: 88px;
-      > img {
-        height: 60px;
-        transition: all 0.1s ease-out;
-      }
-      > p {
-        font-size: 16px;
-        font-weight: 700;
-        color: #ffffff;
-      }
-      &:hover img {
-        transform: translateY(-10px);
-      }
-    }
+
   }
 }
 
@@ -135,6 +116,8 @@ h2 {
   }
 }
 
+
+
 .cLearning {
   position: relative;
   display: flex;
@@ -150,8 +133,8 @@ h2 {
     width: 60px;
     transition: all 0.1s ease-out;
     background-color: #9747ff;
-    mask-image: url("../../../assets/img/learning.png");
-    -webkit-mask-image: url("../../../assets/img/learning.png"); 
+    mask-image: url("../../../assets/img/skill.webp");
+    -webkit-mask-image: url("../../../assets/img/skill.webp");
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
@@ -169,10 +152,12 @@ h2 {
   }
   > .popup {
     position: absolute;
-    top: -110px;
-    left: 0;
+    top: -234px;
+    left: -107;
     opacity: 0;
     background-color: transparent !important;
+    height: 300px;
+    width: 350px;
   }
   &:hover .popup {
     opacity: 1;
@@ -239,21 +224,13 @@ h3 {
     display: flex;
   }
 
-  .column {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    > h3 {
-      margin-block: 3px;
-    }
-  }
+
 
   .skills {
     display: none;
   }
 
-  h3
-  + {
+  h3 {
     font-size: 22px;
   }
 
@@ -266,16 +243,6 @@ h3 {
   }
 }
 
-@media (max-width: 660px) {
-  .column {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    > h3 {
-      margin-block: 3px;
-    }
-  }
-}
 
 
 @media (max-width: 1200px) {
